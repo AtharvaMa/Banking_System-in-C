@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+int Check_balance(int d)
+{
+    printf("Your Current Account Balance is %d\n", d);
+    return d;
+}
+
+int Withdraw_Cash(int balance)
+{
+    int amount;
+    printf("Enter the amount to withdraw: ");
+    scanf("%d", &amount);
+
+    if (amount > balance)
+    {
+        printf("Insufficient funds!\n");
+    }
+    else
+    {
+        balance -= amount;
+        printf("Withdrawal successful. Remaining balance: %d\n", balance);
+    }
+
+    return balance;
+}
+
+int Deposit_Cash(int balance)
+{
+    int amount;
+    printf("Enter the amount to deposit: ");
+    scanf("%d", &amount);
+
+    balance += amount;
+    printf("Deposit successful. Updated balance: %d\n", balance);
+
+    return balance;
+}
+
+void menu(char *b, char *c, int *balance)
+{
+    printf("       LOGIN PAGE      \n");
+    printf(" Enter your login ID :\n");
+    scanf("%s", b);
+    printf("Enter your login password :\n");
+    scanf("%s", c);
+
+    if (strcmp(b, "Atharvamaddalwar") == 0 && strcmp(c, "Atharva@123456") == 0)
+    {
+        printf("Login successfully\n\n\n");
+        int choice;
+
+        do
+        {
+            printf("          Menu           \n");
+            printf("1] Check Balance    \n");
+            printf("2] Withdraw Cash  \n");
+            printf("3] Deposit Cash \n");
+            printf("4] Exit\n");
+            printf("Enter Your choice please :\n");
+            scanf("%d", &choice);
+
+            switch (choice)
+            {
+            case 1:
+                *balance = Check_balance(*balance);
+                break;
+
+            case 2:
+                *balance = Withdraw_Cash(*balance);
+                break;
+
+            case 3:
+                *balance = Deposit_Cash(*balance);
+                break;
+
+            case 4:
+                printf("Exiting the program. Goodbye!\n");
+                break;
+
+            default:
+                printf("Invalid choice. Please enter a valid option.\n");
+            }
+        } while (choice != 4);
+    }
+    else
+    {
+        printf("Please Enter valid ID or PASSWORD\n");
+    }
+}
+
+int main()
+{
+    char ID[25], PASS[25];
+    int balance = 10000;
+    menu(ID, PASS, &balance);
+
+    return 0;
+}
